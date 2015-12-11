@@ -27,4 +27,4 @@ License agreement on use of Yandex AppMetrica for Apps SDK is available at [EULA
 
 [LICENSE]: https://yandex.com/legal/metrica_termsofuse/ "Yandex AppMetrica agreement"
 [DOCUMENTATION]: https://tech.yandex.ru/metrica-mobile-sdk/doc/mobile-sdk-dg/concepts/xamarin-plugin-docpage/ "Yandex AppMetrica Xamarin Plugin documentation"
-[GitHubSAMPLE]: tree/master/samples
+[GitHubSAMPLE]: https://github.com/yandexmobile/metrica-plugin-xamarin/tree/master/samples "Samples from reository"
