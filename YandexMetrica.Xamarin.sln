@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexMetrica.Xamarin.PCL", "YandexMetrica.Xamarin.PCL\YandexMetrica.Xamarin.PCL.csproj", "{2220CE11-BFFD-4A34-82AC-5A7469A39828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexMetrica.Xamarin.iOSBinding", "YandexMetrica.Xamarin.iOSBinding\YandexMetrica.Xamarin.iOSBinding.csproj", "{31A0AF42-B113-40E3-9F0F-9CE6C9D0301A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexMetrica.Xamarin.AndroidBinding", "YandexMetrica.Xamarin.AndroidBinding\YandexMetrica.Xamarin.AndroidBinding.csproj", "{455C6D21-5182-402D-9747-412EA0D63AEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2220CE11-BFFD-4A34-82AC-5A7469A39828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2220CE11-BFFD-4A34-82AC-5A7469A39828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2220CE11-BFFD-4A34-82AC-5A7469A39828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2220CE11-BFFD-4A34-82AC-5A7469A39828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A0AF42-B113-40E3-9F0F-9CE6C9D0301A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A0AF42-B113-40E3-9F0F-9CE6C9D0301A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A0AF42-B113-40E3-9F0F-9CE6C9D0301A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A0AF42-B113-40E3-9F0F-9CE6C9D0301A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{455C6D21-5182-402D-9747-412EA0D63AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{455C6D21-5182-402D-9747-412EA0D63AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{455C6D21-5182-402D-9747-412EA0D63AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{455C6D21-5182-402D-9747-412EA0D63AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
