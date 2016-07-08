@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace Metrica.Xamarin.Forms.iOS
+namespace Metrica.Sample.Forms.iOS
 {
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
@@ -13,7 +13,8 @@ namespace Metrica.Xamarin.Forms.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             // Init iOS AppMetrica directly
-            YandexMetricaIOS.YandexMetricaImplementation.Activate(App.ApiKey());
+            var config = App.AppMetricaConfig();
+            YandexMetricaIOS.YandexMetricaImplementation.Activate(config);
 
             global::Xamarin.Forms.Forms.Init();
 

@@ -15,7 +15,7 @@ namespace YandexMetricaPCL
 
         public void SetTrackLocationEnabled(bool enabled) { }
 
-        public void SetLocation(float latitude, float longitude) { }
+        public void SetLocation(Coordinates coordinates) { }
 
         public void SetSessionTimeout(uint sessionTimeoutSeconds) { }
 

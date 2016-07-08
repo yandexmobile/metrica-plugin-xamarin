@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Metrica.Sample.Forms.MainPage" Padding="0, 20, 0, 0">
+	<ContentPage.Content>
+		<ScrollView>
+			<StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Orientation="Vertical" Spacing="5">
+				<Label Text="Hello! I'm AppMetrica Xamarin Forms sample." HorizontalTextAlignment="Center" />
+
+				<Button x:Name="clickButton" Text="Log click" Clicked="OnEventClicked" />
+				<Button x:Name="errorButton" Text="Log error" Clicked="OnErrorClicked" />
+				<Button Text="Throw Exception" Clicked="OnCrashClicked" />
+
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="2*" />
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Row 0 -->
+					<Label Text="Location:" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+					<Button Text="Minsk" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" Clicked="OnSetMinskLocation" />
+					<Button Text="Moskow" Grid.Row="0" Grid.Column="2" HorizontalOptions="Fill" Clicked="OnSetMoskowLocation" />
+
+					<!-- Row 1 -->
+					<Label Text="App Version:" Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+					<Entry x:Name="appVersionEntry" Text="1.0.0" Grid.Row="1" Grid.Column="1" Placeholder="1.0.0" />
+					<Button Text="Set" Grid.Row="1" Grid.Column="2" Clicked="OnSetAppVersion" />
+
+					<!-- Row 2 -->
+					<Label Text="Session Timeout(s):" Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+					<Entry x:Name="sessionTimeoutEntry" Text="10" Grid.Row="2" Grid.Column="1" Keyboard="Numeric" Placeholder="10" />
+					<Button Text="Set" Grid.Row="2" Grid.Column="2" Clicked="OnSetSessionTimeout" />
+
+					<!-- Row 3 -->
+					<Label Text="Report Crashes:" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+					<Switch x:Name="reportCrashesSwitch" IsToggled="true" Grid.Row="3" Grid.Column="2" Toggled="OnChangeReportCrashes" />
+
+					<!-- Row 4 -->
+					<Label Text="Collect Installed Apps:" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
+					<Switch x:Name="collectAppsSwitch" IsToggled="true" Grid.Row="4" Grid.Column="2" Toggled="OnChangeCollectApps" >
+						<Switch.IsEnabled>
+							<OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+						</Switch.IsEnabled>
+						<Switch.IsToggled>
+							<OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+						</Switch.IsToggled>
+					</Switch>
+				</Grid>
+
+				<Button Text="Library Version" Clicked="OnLibraryVersionClicked" />
+				<Button Text="Library API Level" Clicked="OnLibraryAPILevelClicked">
+					<Button.IsEnabled>
+						<OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+					</Button.IsEnabled>
+				</Button>
+			</StackLayout>
+		</ScrollView>
+	</ContentPage.Content>
+</ContentPage>

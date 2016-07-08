@@ -14,12 +14,59 @@ namespace YandexMetricaAndroid
             YandexMetrica.RegisterImplementation(new YandexMetricaImplementation());
 
             Com.Yandex.Metrica.YandexMetrica.Activate(context, apiKey);
-            if (app != null) {
-                Com.Yandex.Metrica.YandexMetrica.EnableActivityAutoTracking(app);
-            }
+            EnableActivityAutoTracking(app);
 
             // Native crashes are currently not supported
             Com.Yandex.Metrica.YandexMetrica.SetReportNativeCrashesEnabled(false);
+        }
+
+        public static void Activate(Context context, YandexMetricaConfig config, Application app = null)
+        {
+            YandexMetrica.RegisterImplementation(new YandexMetricaImplementation());
+
+            var builder = Com.Yandex.Metrica.YandexMetricaConfig.NewConfigBuilder(config.ApiKey);
+
+            if (config.Location != null) {
+                builder.SetLocation(config.Location.ToLocation());
+            }
+            if (config.AppVersion != null) {
+                builder.SetAppVersion(config.AppVersion);
+            }
+            if (config.TrackLocationEnabled.HasValue) {
+                builder.SetTrackLocationEnabled(config.TrackLocationEnabled.Value);
+            }
+            if (config.SessionTimeout.HasValue) {
+                builder.SetSessionTimeout(config.SessionTimeout.Value);
+            }
+            if (config.ReportCrashesEnabled.HasValue) {
+                builder.SetReportCrashesEnabled(config.ReportCrashesEnabled.Value);
+            }
+            if (config.LoggingEnabled.HasValue && config.LoggingEnabled.Value) {
+                builder.SetLogEnabled();
+            }
+            if (config.CollectInstalledApps.HasValue) {
+                builder.SetCollectInstalledApps(config.CollectInstalledApps.Value);
+            }
+            if (config.PreloadInfo != null) {
+                var preloadInfoBuilder = Com.Yandex.Metrica.PreloadInfo.NewBuilder(config.PreloadInfo.TrackingId);
+                foreach (var kvp in config.PreloadInfo.AdditionalInfo) {
+                    preloadInfoBuilder.SetAdditionalParams(kvp.Key, kvp.Value);
+                }
+                builder.SetPreloadInfo(preloadInfoBuilder.Build());
+            }
+
+            // Native crashes are currently not supported
+            builder.SetReportNativeCrashesEnabled(false);
+
+            Com.Yandex.Metrica.YandexMetrica.Activate(context, builder.Build());
+            EnableActivityAutoTracking(app);
+        }
+
+        private static void EnableActivityAutoTracking(Application app)
+        {
+            if (app != null) {
+                Com.Yandex.Metrica.YandexMetrica.EnableActivityAutoTracking(app);
+            }
         }
 
         public static void OnPauseActivity(Activity activity)
@@ -57,13 +104,9 @@ namespace YandexMetricaAndroid
             Com.Yandex.Metrica.YandexMetrica.SetTrackLocationEnabled(enabled);
         }
 
-        public void SetLocation(float latitude, float longitude) 
-        { 
-            var location = new Location("") {
-                Latitude = latitude,
-                Longitude = longitude
-            };
-            Com.Yandex.Metrica.YandexMetrica.SetLocation(location);
+        public void SetLocation(Coordinates coordinates) 
+        {
+            Com.Yandex.Metrica.YandexMetrica.SetLocation(coordinates.ToLocation());
         }
 
         public void SetSessionTimeout(uint sessionTimeoutSeconds) 
@@ -103,6 +146,17 @@ namespace YandexMetricaAndroid
         public string LibraryVersion { get { return Com.Yandex.Metrica.YandexMetrica.LibraryVersion; } }
 
         public int LibraryApiLevel { get { return Com.Yandex.Metrica.YandexMetrica.LibraryApiLevel; } }
+    }
+
+    public static class Extensions 
+    {
+        public static Location ToLocation(this Coordinates self)
+        {
+            return self == null ? null : new Location("") {
+                Latitude = self.Latitude,
+                Longitude = self.Longitude
+            };
+        }
     }
 }
 

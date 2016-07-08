@@ -8,7 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace Metrica.Xamarin.Forms.Droid
+namespace Metrica.Sample.Forms.Droid
 {
     [Activity(Label = "Metrica.Xamarin.Forms.Droid", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
@@ -18,7 +18,8 @@ namespace Metrica.Xamarin.Forms.Droid
             base.OnCreate(bundle);
 
             // Init Android AppMetrica directly
-            YandexMetricaAndroid.YandexMetricaImplementation.Activate(this, App.ApiKey(), this.Application);
+            var config = App.AppMetricaConfig();
+            YandexMetricaAndroid.YandexMetricaImplementation.Activate(this, config, this.Application);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
