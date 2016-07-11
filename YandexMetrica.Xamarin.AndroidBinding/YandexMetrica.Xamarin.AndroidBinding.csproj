@@ -11,6 +11,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
     <AssemblyName>YandexMetrica.Xamarin.Android</AssemblyName>
+    <ReleaseVersion>1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,12 +57,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <ItemGroup>
-    <LibraryProjectZip Include="Jars\mobmetricalib-2.23.aar" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\YandexMetrica.Xamarin.PCL\YandexMetrica.Xamarin.PCL.csproj">
       <Project>{2220CE11-BFFD-4A34-82AC-5A7469A39828}</Project>
       <Name>YandexMetrica.Xamarin.PCL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <LibraryProjectZip Include="Jars\mobmetricalib-2.42.aar" />
   </ItemGroup>
 </Project>

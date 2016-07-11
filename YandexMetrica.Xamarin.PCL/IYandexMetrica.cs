@@ -49,9 +49,8 @@ namespace YandexMetricaPCL
         /// <para>Android: public static void setLocation(final Location location)</para>
         /// <para>iOS: +(void)setLocation:(CLLocation *)location</para>
         /// </summary>
-        /// <param name="latitude">Location latitude.</param>
-        /// <param name="longitude">Location longitude.</param>
-        void SetLocation (float latitude, float longitude);
+        /// <param name="coordinates">Location coordinates(latitude and longitude).</param>
+        void SetLocation (Coordinates coordinates);
 
         /// <summary>
         /// <para>Sets the session timeout.</para>

@@ -10,8 +10,42 @@ namespace YandexMetricaIOS
         public static void Activate(string apiKey)
         {
             YandexMetrica.RegisterImplementation(new YandexMetricaImplementation());
-
             YMMYandexMetrica.ActivateWithApiKey(apiKey);
+        }
+
+        public static void Activate(YandexMetricaConfig config)
+        {
+            YandexMetrica.RegisterImplementation(new YandexMetricaImplementation());
+
+            var nativeConfig = new YMMYandexMetricaConfiguration(config.ApiKey);
+
+            if (config.Location != null) {
+                nativeConfig.Location = config.Location.ToCLLocation();
+            }
+            if (config.AppVersion != null) {
+                nativeConfig.CustomAppVersion = config.AppVersion;
+            }
+            if (config.TrackLocationEnabled.HasValue) {
+                nativeConfig.TrackLocationEnabled = config.TrackLocationEnabled.Value;
+            }
+            if (config.SessionTimeout.HasValue) {
+                nativeConfig.SessionTimeout = (nuint)config.SessionTimeout.Value;
+            }
+            if (config.ReportCrashesEnabled.HasValue) {
+                nativeConfig.ReportCrashesEnabled = config.ReportCrashesEnabled.Value;
+            }
+            if (config.LoggingEnabled.HasValue) {
+                nativeConfig.LoggingEnabled = config.LoggingEnabled.Value;
+            }
+            if (config.PreloadInfo != null) {
+                var preloadInfo = new YMMYandexMetricaPreloadInfo(config.PreloadInfo.TrackingId);
+                foreach (var kvp in config.PreloadInfo.AdditionalInfo) {
+					preloadInfo.SetAdditionalInfo(kvp.Value, kvp.Key);
+                }
+                nativeConfig.PreloadInfo = preloadInfo;
+            }
+
+            YMMYandexMetrica.ActivateWithConfiguration(nativeConfig);
         }
 
         public void ReportEvent(string message)
@@ -39,10 +73,9 @@ namespace YandexMetricaIOS
             YMMYandexMetrica.SetTrackLocationEnabled(enabled);
         }
 
-        public void SetLocation(float latitude, float longitude) 
-        { 
-            var location = new CLLocation(latitude, longitude);
-            YMMYandexMetrica.SetLocation(location);
+        public void SetLocation(Coordinates coordinates) 
+        {
+            YMMYandexMetrica.SetLocation(coordinates.ToCLLocation());
         }
 
         public void SetSessionTimeout(uint sessionTimeoutSeconds) 
@@ -75,6 +108,14 @@ namespace YandexMetricaIOS
         public string LibraryVersion { get { return YMMYandexMetrica.LibraryVersion; } }
 
         public int LibraryApiLevel { get { return default(int); } }
+    }
+
+    public static class Extensions 
+    {
+        public static CLLocation ToCLLocation(this Coordinates self)
+        {
+            return self == null ? null : new CLLocation(self.Latitude, self.Longitude);
+        }
     }
 }
 

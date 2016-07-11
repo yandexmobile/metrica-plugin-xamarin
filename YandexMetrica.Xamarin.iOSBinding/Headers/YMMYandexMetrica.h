@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 
 @class CLLocation;
+@class YMMYandexMetricaConfiguration;
 
 extern NSString *const kYMMYandexMetricaErrorDomain;
 
@@ -30,6 +31,15 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  The key can be requested or checked at https://appmetrica.yandex.com
  */
 + (void)activateWithApiKey:(NSString *)apiKey;
+
+/** Starting the statistics collection process.
+
+ @param configuration Configuration combines all AppMetrica settings in one place.
+ Configuration initialized with unique application key that is issued during application registration in AppMetrica.
+ Application key must be a hexadecimal string in format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
+ The key can be requested or checked at https://appmetrica.yandex.com
+ */
++ (void)activateWithConfiguration:(YMMYandexMetricaConfiguration *)configuration;
 
 /** Reporting custom event.
 
@@ -117,6 +127,18 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
 /** Retrieves current version of library.
  */
 + (NSString *)libraryVersion;
+
+/** Enables AppMetrica's tracking mechanism by providing application's url scheme.
+
+ @param urlScheme Application's deep link scheme. Scheme should be registered in CFBundleURLTypes Info.plist section.
+ */
++ (BOOL)enableTrackingWithURLScheme:(NSURL *)urlScheme NS_EXTENSION_UNAVAILABLE_IOS("") NS_AVAILABLE_IOS(9_0);
+
+/** Reads the URL that has opened the application to search for an AppMetrica deep link.
+
+ @param url URL that has opened the application. URL scheme should be registered beforehand via `enableTrackingWithUrlScheme` method.
+ */
++ (BOOL)handleOpenURL:(NSURL *)url NS_EXTENSION_UNAVAILABLE_IOS("") NS_AVAILABLE_IOS(9_0);
 
 @end
 

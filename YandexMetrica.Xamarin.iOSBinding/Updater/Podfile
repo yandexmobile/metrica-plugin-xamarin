@@ -1,8 +1,0 @@
-source 'https://github.com/CocoaPods/Specs.git'
-xcodeproj 'EmptyApplication.xcodeproj'
-
-target 'EmptyApplication' do
-
-pod 'YandexMobileMetrica'
-
-end

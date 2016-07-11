@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace Metrica.Xamarin.Forms.iOS
+namespace Metrica.Sample.Forms.iOS
 {
     public class Application
     {
