@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Yandex.Metrica.Xamarin</id>
+    <version>1.0.0</version>
+    <title>AppMetrica Xamarin</title>
+    <authors>YANDEX</authors>
+    <owners>YANDEX</owners>
+    <licenseUrl>http://legal.yandex.ru/metrica_termsofuse/</licenseUrl>
+    <projectUrl>http://appmetrica.yandex.com/</projectUrl>
+    <iconUrl>https://appmetrica.yandex.com/ogimage.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>AppMetrica is a set of libraries for gathering statistics on mobile app usage. You can view the collected data in the AppMetrica web interface.</description>
+    <releaseNotes>- Released this NuGet package.</releaseNotes>
+    <copyright>© 2016 YANDEX</copyright>
+    <tags>yandex metrica metrika appmetrica appmetrika sdk ios android xamarin яндекс метрика аппметрика яндекс.метрика</tags>
+  </metadata>
+  <files>
+    <!-- PCL -->
+    <file src="YandexMetrica.Xamarin.PCL/bin/Release/YandexMetrica.Xamarin.PCL.dll" target="lib\portable-win+net45+MonoAndroid+MonoTouch+sl40+wp71\YandexMetrica.Xamarin.PCL.dll"/>
+    <!-- iOS -->
+    <file src="YandexMetrica.Xamarin.iOSBinding/bin/Release/YandexMetrica.Xamarin.iOS.dll" target="lib\Xamarin.iOS10\YandexMetrica.Xamarin.iOS.dll"/>
+    <file src="YandexMetrica.Xamarin.PCL/bin/Release/YandexMetrica.Xamarin.PCL.dll" target="lib\Xamarin.iOS10\YandexMetrica.Xamarin.PCL.dll"/>
+    <!-- Android -->
+    <file src="YandexMetrica.Xamarin.AndroidBinding/bin/Release/YandexMetrica.Xamarin.Android.dll" target="lib\MonoAndroid10\YandexMetrica.Xamarin.Android.dll"/>
+    <file src="YandexMetrica.Xamarin.PCL/bin/Release/YandexMetrica.Xamarin.PCL.dll" target="lib\MonoAndroid10\YandexMetrica.Xamarin.PCL.dll"/>
+    <!-- Old iOS -->
+    <file src="YandexMetrica.Xamarin.iOSBinding/bin/Release/YandexMetrica.Xamarin.iOS.dll" target="lib\MonoTouch10\YandexMetrica.Xamarin.iOS.dll"/>
+    <file src="YandexMetrica.Xamarin.PCL/bin/Release/YandexMetrica.Xamarin.PCL.dll" target="lib\MonoTouch10\YandexMetrica.Xamarin.PCL.dll"/>
+  </files>
+</package>
