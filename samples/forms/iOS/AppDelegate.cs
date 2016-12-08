@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using CoreLocation;
 using Foundation;
 using UIKit;
 
@@ -15,6 +15,11 @@ namespace Metrica.Sample.Forms.iOS
             // Init iOS AppMetrica directly
             var config = App.AppMetricaConfig();
             YandexMetricaIOS.YandexMetricaImplementation.Activate(config);
+
+			var locationManager = new CLLocationManager();
+			if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0)) {
+				locationManager.RequestWhenInUseAuthorization();
+			}
 
             global::Xamarin.Forms.Forms.Init();
 

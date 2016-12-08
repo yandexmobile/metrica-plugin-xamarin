@@ -3,7 +3,7 @@
  *
  * This file is a part of the AppMetrica
  *
- * Version for iOS © 2015 YANDEX
+ * Version for iOS © 2016 YANDEX
  *
  * You may not use this file except in compliance with the License.
  * You may obtain a copy of the License at http://legal.yandex.com/metrica_termsofuse/
@@ -14,6 +14,8 @@
 @class CLLocation;
 @class YMMYandexMetricaPreloadInfo;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface YMMYandexMetricaConfiguration : NSObject
 
 /** Initialize configuration with specified Application key.
@@ -23,7 +25,7 @@
  Application key must be a hexadecimal string in format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
  The key can be requested or checked at https://appmetrica.yandex.com
  */
-- (instancetype)initWithApiKey:(NSString *)apiKey;
+- (nullable instancetype)initWithApiKey:(NSString *)apiKey;
 
 - (instancetype)init __attribute__((unavailable("initWithApiKey: must be used instead.")));
 
@@ -46,7 +48,7 @@
 
  By default is nil
  */
-@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, strong, nullable) CLLocation *location;
 
 /** Set/get session timeout (in seconds).
  Time limit before the application is considered inactive.
@@ -67,7 +69,7 @@
 
  By default, the application version is set in the app configuration file Info.plist (CFBundleShortVersionString).
  */
-@property (nonatomic, copy) NSString *customAppVersion;
+@property (nonatomic, copy, nullable) NSString *customAppVersion;
 
 /** Enable/disable logging.
 
@@ -80,6 +82,8 @@
 
  By default is nil.
  */
-@property (nonatomic, copy) YMMYandexMetricaPreloadInfo *preloadInfo;
+@property (nonatomic, copy, nullable) YMMYandexMetricaPreloadInfo *preloadInfo;
 
 @end
+
+NS_ASSUME_NONNULL_END

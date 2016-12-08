@@ -17,7 +17,6 @@ namespace Metrica.Sample.Forms
         public static YandexMetricaConfig AppMetricaConfig()
         {
             var config = new YandexMetricaConfig(ApiKey());
-            config.TrackLocationEnabled = false;
             config.CollectInstalledApps = false;
 
             return config;

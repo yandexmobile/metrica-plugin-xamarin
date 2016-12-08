@@ -9,7 +9,7 @@
     <RootNamespace>Metrica.Sample.Forms.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Metrica.Xamarin.Forms.iOS</AssemblyName>
-    <ReleaseVersion>1.0</ReleaseVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +54,14 @@
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseThumb></MtouchUseThumb>
+    <MtouchFloat32></MtouchFloat32>
+    <MtouchEnableBitcode></MtouchEnableBitcode>
+    <BuildIpa></BuildIpa>
+    <IpaIncludeArtwork></IpaIncludeArtwork>
+    <IpaMetadata></IpaMetadata>
+    <IpaPackageName></IpaPackageName>
+    <CrashReportingApiKey></CrashReportingApiKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,6 +80,11 @@
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
+    <CodesignExtraArgs></CodesignExtraArgs>
+    <CodesignResourceRules></CodesignResourceRules>
+    <MtouchHttpClientHandler></MtouchHttpClientHandler>
+    <MtouchTlsProvider></MtouchTlsProvider>
+    <MtouchEnableGenericValueTypeSharing></MtouchEnableGenericValueTypeSharing>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
