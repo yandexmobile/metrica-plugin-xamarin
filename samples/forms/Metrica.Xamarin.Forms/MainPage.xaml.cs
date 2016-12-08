@@ -8,39 +8,42 @@ namespace Metrica.Sample.Forms
 {
 	public partial class MainPage : ContentPage
 	{
-		static int clicksCount = 0;
-		static int errorsCount = 0;
+		private int ClicksCount { get; set; }
+		private int ErrorsCount { get; set; }
 
 		public MainPage ()
 		{
 			InitializeComponent ();
+
+			ClicksCount = 0;
+			ErrorsCount = 0;
 
 			collectAppsSwitch.IsToggled = YandexMetrica.Implementation.CollectInstalledApps;
 		}
 
 		public void OnEventClicked (object sender, EventArgs args)
 		{
-			++clicksCount;
+			++ClicksCount;
 
 			var dict = new Dictionary<string, string>{
-				{ "click", clicksCount.ToString() },
+				{ "click", ClicksCount.ToString() },
 			};
 			YandexMetrica.Implementation.ReportEvent("Click from Forms", dict);
 
-			clickButton.Text = string.Format("{0} clicks logged", clicksCount);
+			clickButton.Text = string.Format("{0} clicks logged", ClicksCount);
 		}
 
 		public void OnErrorClicked (object sender, EventArgs args)
 		{
-			++errorsCount;
+			++ErrorsCount;
 
 			try {
-				throw new Exception (string.Format ("I'm exception #{0}", errorsCount));
+				throw new Exception (string.Format ("I'm exception #{0}", ErrorsCount));
 			} catch (Exception ex) {
 				YandexMetrica.Implementation.ReportError ("Error from Forms", ex);
 			}
 
-			errorButton.Text = string.Format ("{0} errors logged", errorsCount);
+			errorButton.Text = string.Format ("{0} errors logged", ErrorsCount);
 		}
 
 		public void OnCrashClicked (object sender, EventArgs args)
@@ -50,18 +53,18 @@ namespace Metrica.Sample.Forms
 
 		public void OnSetMinskLocation(object sender, EventArgs args)
 		{
-			double latitude = 53.890651;
-			double longitude = 27.525408;
-			YandexMetrica.Implementation.SetLocation(new Coordinates { Latitude = latitude, Longitude = longitude});
-			DisplayAlert ("Location", string.Format("{0} {1}", latitude, longitude), "OK");
+			SetLocation(53.890651, 27.525408);
 		}
 
-		public void OnSetMoskowLocation(object sender, EventArgs args)
+		public void OnSetMoscowLocation(object sender, EventArgs args)
 		{
-			double latitude = 55.734417;
-			double longitude = 37.588029;
-			YandexMetrica.Implementation.SetLocation(new Coordinates { Latitude = latitude, Longitude = longitude});
-			DisplayAlert ("Location", string.Format("{0} {1}", latitude, longitude), "OK");
+			SetLocation(55.734417, 37.588029);
+		}
+
+		private void SetLocation(double latitude, double longitude)
+		{
+			YandexMetrica.Implementation.SetLocation(new Coordinates { Latitude = latitude, Longitude = longitude });
+			DisplayAlert("Location", string.Format("{0} {1}", latitude, longitude), "OK");
 		}
 
 		public void OnSetAppVersion(object sender, EventArgs args)
@@ -82,14 +85,12 @@ namespace Metrica.Sample.Forms
 
 		public void OnChangeReportCrashes(object sender, EventArgs args)
 		{
-			YandexMetrica.Implementation.SetReportCrashesEnabled (reportCrashesSwitch.IsToggled);
+			YandexMetrica.Implementation.SetReportCrashesEnabled ((sender as Switch).IsToggled);
 		}
 
 		public void OnChangeCollectApps(object sender, EventArgs args)
 		{
-			if (collectAppsSwitch != null) {
-				YandexMetrica.Implementation.CollectInstalledApps = collectAppsSwitch.IsToggled;
-			}
+			YandexMetrica.Implementation.CollectInstalledApps = (sender as Switch).IsToggled;
 		}
 
 		public void OnLibraryVersionClicked (object sender, EventArgs args)

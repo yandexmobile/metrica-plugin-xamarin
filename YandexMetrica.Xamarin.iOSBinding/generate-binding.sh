@@ -1,7 +1,11 @@
 #!/bin/bash
 
+set -e
+
 # Download Objective Sharpie first:
-# https://developer.xamarin.com/guides/ios/advanced_topics/binding_objective-c/objective_sharpie/
+DOWNLOAD_LINK="https://developer.xamarin.com/guides/ios/advanced_topics/binding_objective-c/objective_sharpie/"
+
+sharpie --version 2>/dev/null || ( echo "Install Sharpie first: $DOWNLOAD_LINK" && false )
 
 SDK=$(sharpie xcode -sdks | awk '/sdk: iphoneos.*/{print $2}' | head -n 1)
 if [ -z "$SDK" ]; then

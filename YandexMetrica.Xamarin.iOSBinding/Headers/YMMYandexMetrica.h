@@ -3,7 +3,7 @@
  *
  * This file is a part of the AppMetrica
  *
- * Version for iOS © 2015 YANDEX
+ * Version for iOS © 2016 YANDEX
  *
  * You may not use this file except in compliance with the License.
  * You may obtain a copy of the License at http://legal.yandex.com/metrica_termsofuse/
@@ -13,6 +13,8 @@
 
 @class CLLocation;
 @class YMMYandexMetricaConfiguration;
+
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const kYMMYandexMetricaErrorDomain;
 
@@ -47,7 +49,7 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  @param onFailure Block to be executed if an error occurres while reporting, the error is passed as block argument.
  */
 + (void)reportEvent:(NSString *)message
-          onFailure:(void (^)(NSError *error))onFailure;
+          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
 
 /** Reporting custom event with additional parameters.
 
@@ -56,8 +58,8 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  @param onFailure Block to be executed if an error occurres while reporting, the error is passed as block argument.
  */
 + (void)reportEvent:(NSString *)message
-         parameters:(NSDictionary *)params
-          onFailure:(void (^)(NSError *error))onFailure;
+         parameters:(nullable NSDictionary *)params
+          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
 
 /** Reporting custom error messages.
 
@@ -66,8 +68,8 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  @param onFailure Block to be executed if an error occurres while reporting, the error is passed as block argument.
  */
 + (void)reportError:(NSString *)message
-          exception:(NSException *)exception
-          onFailure:(void (^)(NSError *error))onFailure;
+          exception:(nullable NSException *)exception
+          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
 
 /**
  Enable/disable location reporting to AppMetrica.
@@ -85,7 +87,7 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  
  @param location Custom device location to be reported.
  */
-+ (void)setLocation:(CLLocation *)location;
++ (void)setLocation:(nullable CLLocation *)location;
 
 /** Setting session timeout (in seconds).
 
@@ -117,12 +119,12 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
 + (void)setLoggingEnabled:(BOOL)isEnabled;
 
 /** Setting key - value data to be used as additional information, associated with future unhandled exception.
- If value is nil previously set key-value is removed, does nothing if key hasn't been added.
+ If value is nil, previously set key-value is removed. Does nothing if key hasn't been added.
 
  @param value The error environment value.
  @param key The error environment key.
  */
-+ (void)setEnvironmentValue:(NSString *)value forKey:(NSString *)key;
++ (void)setEnvironmentValue:(nullable NSString *)value forKey:(NSString *)key;
 
 /** Retrieves current version of library.
  */
@@ -149,3 +151,5 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
                                "Use activateWithApiKey: with updated key. More info in activateWithApiKey:'s description")));
 
 @end
+
+NS_ASSUME_NONNULL_END

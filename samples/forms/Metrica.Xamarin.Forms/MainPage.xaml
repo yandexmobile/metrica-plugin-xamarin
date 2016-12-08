@@ -5,9 +5,11 @@
 			<StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Orientation="Vertical" Spacing="5">
 				<Label Text="Hello! I'm AppMetrica Xamarin Forms sample." HorizontalTextAlignment="Center" />
 
-				<Button x:Name="clickButton" Text="Log click" Clicked="OnEventClicked" />
-				<Button x:Name="errorButton" Text="Log error" Clicked="OnErrorClicked" />
-				<Button Text="Throw Exception" Clicked="OnCrashClicked" />
+				<StackLayout VerticalOptions="Center" HorizontalOptions="Center" Orientation="Vertical" Spacing="5">
+					<Button x:Name="clickButton" Text="Log click" Clicked="OnEventClicked" />
+					<Button x:Name="errorButton" Text="Log error" Clicked="OnErrorClicked" />
+					<Button Text="Throw Exception" Clicked="OnCrashClicked" />
+				</StackLayout>
 
 				<Grid>
 					<Grid.RowDefinitions>
@@ -26,7 +28,7 @@
 					<!-- Row 0 -->
 					<Label Text="Location:" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
 					<Button Text="Minsk" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" Clicked="OnSetMinskLocation" />
-					<Button Text="Moskow" Grid.Row="0" Grid.Column="2" HorizontalOptions="Fill" Clicked="OnSetMoskowLocation" />
+					<Button Text="Moscow" Grid.Row="0" Grid.Column="2" HorizontalOptions="Fill" Clicked="OnSetMoscowLocation" />
 
 					<!-- Row 1 -->
 					<Label Text="App Version:" Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
@@ -40,11 +42,18 @@
 
 					<!-- Row 3 -->
 					<Label Text="Report Crashes:" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
-					<Switch x:Name="reportCrashesSwitch" IsToggled="true" Grid.Row="3" Grid.Column="2" Toggled="OnChangeReportCrashes" />
+					<Switch x:Name="reportCrashesSwitch" IsToggled="true" Grid.Row="3" Grid.Column="2" Toggled="OnChangeReportCrashes">
+						<Switch.IsEnabled>
+							<OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+						</Switch.IsEnabled>
+						<Switch.IsToggled>
+							<OnPlatform x:TypeArguments="x:Boolean" iOS="True" Android="True"/>
+						</Switch.IsToggled>
+					</Switch>
 
 					<!-- Row 4 -->
 					<Label Text="Collect Installed Apps:" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="End" VerticalTextAlignment="Center" />
-					<Switch x:Name="collectAppsSwitch" IsToggled="true" Grid.Row="4" Grid.Column="2" Toggled="OnChangeCollectApps" >
+					<Switch x:Name="collectAppsSwitch" IsToggled="true" Grid.Row="4" Grid.Column="2" Toggled="OnChangeCollectApps">
 						<Switch.IsEnabled>
 							<OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
 						</Switch.IsEnabled>
