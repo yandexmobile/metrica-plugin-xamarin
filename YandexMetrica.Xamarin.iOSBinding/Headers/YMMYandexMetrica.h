@@ -3,7 +3,7 @@
  *
  * This file is a part of the AppMetrica
  *
- * Version for iOS © 2016 YANDEX
+ * Version for iOS © 2017 YANDEX
  *
  * You may not use this file except in compliance with the License.
  * You may obtain a copy of the License at http://legal.yandex.com/metrica_termsofuse/
@@ -13,6 +13,7 @@
 
 @class CLLocation;
 @class YMMYandexMetricaConfiguration;
+@protocol YMMYandexMetricaReporting;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -49,7 +50,7 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  @param onFailure Block to be executed if an error occurres while reporting, the error is passed as block argument.
  */
 + (void)reportEvent:(NSString *)message
-          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
+          onFailure:(nullable void (^)(NSError *error))onFailure;
 
 /** Reporting custom event with additional parameters.
 
@@ -59,7 +60,7 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  */
 + (void)reportEvent:(NSString *)message
          parameters:(nullable NSDictionary *)params
-          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
+          onFailure:(nullable void (^)(NSError *error))onFailure;
 
 /** Reporting custom error messages.
 
@@ -69,10 +70,9 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  */
 + (void)reportError:(NSString *)message
           exception:(nullable NSException *)exception
-          onFailure:(nullable void (^)(NSError * _Nullable error))onFailure;
+          onFailure:(nullable void (^)(NSError *error))onFailure;
 
-/**
- Enable/disable location reporting to AppMetrica.
+/** Enable/disable location reporting to AppMetrica.
  If enabled and location set via setLocation: method - that location would be used.
  If enabled and location is not set via setLocation,
  but application has appropriate permission - CLLocationManager would be used to acquire location data.
@@ -136,11 +136,27 @@ typedef NS_ENUM(NSInteger, YMMYandexMetricaEventErrorCode) {
  */
 + (BOOL)enableTrackingWithURLScheme:(NSURL *)urlScheme NS_EXTENSION_UNAVAILABLE_IOS("") NS_AVAILABLE_IOS(9_0);
 
-/** Reads the URL that has opened the application to search for an AppMetrica deep link.
+/** Handles the URL that has opened the application.
+ Reports the URL for deep links tracking.
+ URL scheme should be registered beforehand via `enableTrackingWithUrlScheme:` method for tracking to work correctly.
 
- @param url URL that has opened the application. URL scheme should be registered beforehand via `enableTrackingWithUrlScheme` method.
+ @param url URL that has opened the application.
  */
-+ (BOOL)handleOpenURL:(NSURL *)url NS_EXTENSION_UNAVAILABLE_IOS("") NS_AVAILABLE_IOS(9_0);
++ (BOOL)handleOpenURL:(NSURL *)url;
+
+/** Returns id<YMMYandexMetricaReporting> that can send events to specific API key.
+
+ @param apiKey Api key to send events to.
+ @return id<YMMYandexMetricaReporting> that conforms to YMMYandexMetricaReporting and handles 
+ sending events to specified apikey
+ */
++ (nullable id<YMMYandexMetricaReporting>)reporterForApiKey:(NSString *)apiKey;
+
+/**
+ * Sets referral URL for this installation. This might be required to track some specific traffic sources like Facebook.
+ * @param url referral URL value.
+ */
++ (void)reportReferralUrl:(NSURL *)url;
 
 @end
 

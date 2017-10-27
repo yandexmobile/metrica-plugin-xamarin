@@ -9,7 +9,7 @@
     <RootNamespace>YandexMetricaAndroid</RootNamespace>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <AssemblyName>YandexMetrica.Xamarin.Android</AssemblyName>
     <ReleaseVersion>1.1.0</ReleaseVersion>
   </PropertyGroup>
@@ -63,6 +63,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <LibraryProjectZip Include="Jars\mobmetricalib-2.60.aar" />
+    <LibraryProjectZip Include="Jars\mobmetricalib-2.77.aar" />
   </ItemGroup>
 </Project>

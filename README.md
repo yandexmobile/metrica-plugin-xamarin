@@ -16,6 +16,9 @@ advertisement**.
 
 ## Changelog
 
+### Version 1.2.0
+* Updated AppMetrica libs: iOS 2.9.1 and Android 2.7.7.
+
 ### Version 1.1.0
 * Updated AppMetrica libs: iOS 2.6.5 and Android 2.6.0.
 * Updated script for iOS AppMetrica lib updating.
