@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Version for Xamarin
+ * © 2015-2017 YANDEX
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
+ */
+
+using System;
 
 using Android.App;
 using Android.Content;
@@ -16,10 +24,6 @@ namespace Metrica.Sample.Forms.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            // Init Android AppMetrica directly
-            var config = App.AppMetricaConfig();
-            YandexMetricaAndroid.YandexMetricaImplementation.Activate(this, config, this.Application);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 

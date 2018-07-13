@@ -1,10 +1,10 @@
 # AppMetrica Xamarin Plugin
 
 ## Documentation
-Documentation available on [metrica official site][DOCUMENTATION].
+Documentation available on [metrica official site] [DOCUMENTATION].
 
 ## Sample project
-Sample projects (Xamarin Native and Xamarin Forms) to use is available at [samples/][GitHubSAMPLE].
+Sample projects (Xamarin Native and Xamarin Forms) to use is available at [samples/] [GitHubSAMPLE].
 
 ## AppStore submit notice
 Starting from version 1.6.0 Yandex AppMetrica became also a tracking instrument and
@@ -16,13 +16,20 @@ advertisement**.
 
 ## Changelog
 
+### Version 2.0.0
+* Updated AppMetrica SDK versions (iOS 3.1.2, Android 3.1.0).
+* Changed the SDK to meet the requirements of the Apple App Store Review Team. Update the plugin to avoid any issues during the App Store moderation process.
+* Changed API methods.
+* Added a method for getting the configuration of the AppMetrica Push Xamarin plugin.
+* Fixed an [issue](https://github.com/yandexmobile/metrica-plugin-xamarin/issues/5) when using custom Application class
+
 ### Version 1.1.0
 * Updated AppMetrica libs: iOS 2.6.5 and Android 2.6.0.
 * Updated script for iOS AppMetrica lib updating.
 
 ### Version 1.0.0
 * Updated AppMetrica libs: iOS 2.5.1 and Android 2.4.2.
-* Released [NuGet package][NuGetPackage].
+* Released [NuGet package] [NuGetPackage].
 
 ### Version 0.1.0
 * Implemented bindings for AppMetrica iOS (v2.1.1) and AppMetrica Android (v2.23).
@@ -30,10 +37,10 @@ advertisement**.
 * Provided samples for Xamarin Native and Xamarin Forms (iOS and Android).
 
 ## License
-License agreement on use of Yandex AppMetrica is available at [EULA site][LICENSE]
+License agreement on use of Yandex AppMetrica is available at [EULA site] [LICENSE]
 
 
-[LICENSE]: https://yandex.com/legal/metrica_termsofuse/ "Yandex AppMetrica agreement"
+[LICENSE]: https://yandex.com/legal/appmetrica_sdk_agreement/ "Yandex AppMetrica agreement"
 [DOCUMENTATION]: https://tech.yandex.ru/metrica-mobile-sdk/doc/mobile-sdk-dg/concepts/xamarin-plugin-docpage/ "Yandex AppMetrica Xamarin Plugin documentation"
 [GitHubSAMPLE]: https://github.com/yandexmobile/metrica-plugin-xamarin/tree/master/samples "Samples from reository"
 [NuGetPackage]: https://www.nuget.org/packages/Yandex.Metrica.Xamarin/ "NuGet package"

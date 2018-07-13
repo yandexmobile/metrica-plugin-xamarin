@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Version for Xamarin
+ * © 2015-2017 YANDEX
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
+ */
+
+using System;
 using System.Collections.Generic;
 using YandexMetricaPCL;
 using Xamarin.Forms;
@@ -16,10 +24,13 @@ namespace Metrica.Sample.Forms
 
         public static YandexMetricaConfig AppMetricaConfig()
         {
-            var config = new YandexMetricaConfig(ApiKey());
-            config.CollectInstalledApps = false;
-
-            return config;
+            return new YandexMetricaConfig(ApiKey())
+            {
+                InstalledAppCollecting = true,
+                CrashReporting = true,
+                LocationTracking = true,
+                Logs = true
+            };
         }
 
         public App()

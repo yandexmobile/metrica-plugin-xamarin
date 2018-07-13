@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Version for Xamarin
+ * © 2015-2017 YANDEX
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
+ */
+
+using System;
 
 namespace YandexMetricaPCL
 {
@@ -8,10 +16,10 @@ namespace YandexMetricaPCL
         public string AppVersion { get; set; }
         public Coordinates Location { get; set; }
         public int? SessionTimeout { get; set; }
-        public bool? ReportCrashesEnabled { get; set; }
-        public bool? TrackLocationEnabled { get; set; }
-        public bool? LoggingEnabled { get; set; }
-        public bool? CollectInstalledApps { get; set; }
+        public bool? CrashReporting { get; set; }
+        public bool? LocationTracking { get; set; }
+        public bool? Logs { get; set; }
+        public bool? InstalledAppCollecting { get; set; }
 
         public YandexMetricaPreloadInfo PreloadInfo { get; set; }
 
