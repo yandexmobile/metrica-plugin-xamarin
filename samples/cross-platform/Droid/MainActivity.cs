@@ -1,4 +1,12 @@
-﻿using Android.App;
+﻿/*
+ * Version for Xamarin
+ * © 2015-2017 YANDEX
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
+ */
+
+using Android.App;
 using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
@@ -15,9 +23,6 @@ namespace Metrica.Xamarin.CrossPlatform.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Init Android AppMetrica directly
-            YandexMetricaAndroid.YandexMetricaImplementation.Activate(this, SharedLogic.ApiKey(), this.Application);
 
             SetContentView(Resource.Layout.Main);
 

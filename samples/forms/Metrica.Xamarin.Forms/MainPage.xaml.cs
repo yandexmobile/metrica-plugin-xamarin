@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Version for Xamarin
+ * © 2015-2017 YANDEX
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
+ */
+
+using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -17,8 +25,6 @@ namespace Metrica.Sample.Forms
 
 			ClicksCount = 0;
 			ErrorsCount = 0;
-
-			collectAppsSwitch.IsToggled = YandexMetrica.Implementation.CollectInstalledApps;
 		}
 
 		public void OnEventClicked (object sender, EventArgs args)
@@ -65,32 +71,6 @@ namespace Metrica.Sample.Forms
 		{
 			YandexMetrica.Implementation.SetLocation(new Coordinates { Latitude = latitude, Longitude = longitude });
 			DisplayAlert("Location", string.Format("{0} {1}", latitude, longitude), "OK");
-		}
-
-		public void OnSetAppVersion(object sender, EventArgs args)
-		{
-			string appVersion = appVersionEntry.Text;
-			YandexMetrica.Implementation.SetCustomAppVersion (appVersion);
-			DisplayAlert ("App Version", appVersion, "OK");
-		}
-
-		public void OnSetSessionTimeout(object sender, EventArgs args)
-		{
-			uint timeout = 10;
-			if (uint.TryParse (sessionTimeoutEntry.Text, out timeout)) {
-				YandexMetrica.Implementation.SetSessionTimeout (timeout);
-				DisplayAlert ("Session Timeout", timeout.ToString (), "OK");
-			} 
-		}
-
-		public void OnChangeReportCrashes(object sender, EventArgs args)
-		{
-			YandexMetrica.Implementation.SetReportCrashesEnabled ((sender as Switch).IsToggled);
-		}
-
-		public void OnChangeCollectApps(object sender, EventArgs args)
-		{
-			YandexMetrica.Implementation.CollectInstalledApps = (sender as Switch).IsToggled;
 		}
 
 		public void OnLibraryVersionClicked (object sender, EventArgs args)

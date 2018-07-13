@@ -1,23 +1,29 @@
-<?xml version="1.0"?>
-<package>
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Yandex.Metrica.Xamarin</id>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
     <title>AppMetrica Xamarin</title>
     <authors>YANDEX</authors>
     <owners>YANDEX</owners>
-    <licenseUrl>http://legal.yandex.ru/metrica_termsofuse/</licenseUrl>
+    <licenseUrl>https://yandex.com/legal/appmetrica_sdk_agreement/</licenseUrl>
     <projectUrl>http://appmetrica.yandex.com/</projectUrl>
     <iconUrl>https://appmetrica.yandex.com/ogimage.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>AppMetrica is a set of libraries for gathering statistics on mobile app usage. You can view the collected data in the AppMetrica web interface.</description>
-    <releaseNotes>- Updated AppMetrica SDK: 2.6.5 iOS, 2.6.0 Android.</releaseNotes>
-    <copyright>© 2016 YANDEX</copyright>
+    <releaseNotes>
+- Updated AppMetrica SDK versions (iOS 3.1.2, Android 3.1.0).
+- Changed the SDK to meet the requirements of the Apple App Store Review Team. Update the plugin to avoid any issues during the App Store moderation process.
+- Changed API methods.
+- Added a method for getting the configuration of the AppMetrica Push Xamarin plugin.
+- Fixed an issue when using custom Application class
+    </releaseNotes>
+    <copyright>© 2018 YANDEX</copyright>
     <tags>yandex metrica metrika appmetrica appmetrika analytics sdk ios android xamarin яндекс метрика аппметрика яндекс.метрика аналитика</tags>
   </metadata>
   <files>
     <!-- PCL -->
-    <file src="YandexMetrica.Xamarin.PCL/bin/Release/YandexMetrica.Xamarin.PCL.dll" target="lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/YandexMetrica.Xamarin.PCL.dll"/>
+    <file src="YandexMetrica.Xamarin.PCL/bin/Release/YandexMetrica.Xamarin.PCL.dll" target="lib/portable40-net40+sl5+win8+wp8/YandexMetrica.Xamarin.PCL.dll"/>
     <!-- iOS -->
     <file src="YandexMetrica.Xamarin.iOSBinding/bin/Release/YandexMetrica.Xamarin.iOS.dll" target="lib/Xamarin.iOS10/YandexMetrica.Xamarin.iOS.dll"/>
     <file src="YandexMetrica.Xamarin.PCL/bin/Release/YandexMetrica.Xamarin.PCL.dll" target="lib/Xamarin.iOS10/YandexMetrica.Xamarin.PCL.dll"/>

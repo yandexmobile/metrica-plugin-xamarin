@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Version for Xamarin
+ * © 2015-2017 YANDEX
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
+ */
+
+using System;
 using UIKit;
 using Foundation;
 using YandexMetricaPCL;
@@ -20,7 +28,7 @@ namespace Metrica.Xamarin.CrossPlatform.iOS
             base.ViewDidLoad();
 
             // Init iOS AppMetrica directly
-            YandexMetricaIOS.YandexMetricaImplementation.Activate(SharedLogic.ApiKey());
+            YandexMetricaIOS.YandexMetricaImplementation.Activate(SharedLogic.AppMetricaConfig());
 
             LogClickButton.AccessibilityIdentifier = "logClickButton";
             LogClickButton.TouchUpInside += delegate {

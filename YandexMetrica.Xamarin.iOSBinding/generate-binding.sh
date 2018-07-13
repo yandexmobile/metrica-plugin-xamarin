@@ -14,4 +14,4 @@ if [ -z "$SDK" ]; then
 fi
 
 echo "SDK used: ${SDK}"
-sharpie bind --output=./ --namespace=YandexMetricaIOS --exclude=YandexMobileMetrica.h --sdk="${SDK}" Headers/*.h
+sharpie bind -output ./ -namespace YandexMetricaIOS -sdk "${SDK}" -scope Headers Headers/YandexMobileMetrica.h

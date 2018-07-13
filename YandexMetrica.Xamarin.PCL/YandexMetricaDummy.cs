@@ -1,37 +1,34 @@
-﻿using System;
+﻿/*
+ * Version for Xamarin
+ * © 2015-2017 YANDEX
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://yandex.com/legal/appmetrica_sdk_agreement/
+ */
+
+using System;
+using System.Collections.Generic;
 
 namespace YandexMetricaPCL
 {
     /// <summary>
     /// AppMetrica empty implementation.
     /// </summary>
-    public class YandexMetricaDummy : IYandexMetrica
+    public class YandexMetricaDummy : BaseYandexMetrica
     {
-        public void ReportEvent(string message) { }
+        public override void ReportEvent(string message) { }
 
-        public void ReportEvent(string message, System.Collections.Generic.IDictionary<string, string> parameters) { } 
+        public override void ReportEvent(string message, IDictionary<string, string> parameters) { }
 
-        public void ReportError(string message, Exception exception) { }
+        public override void ReportError(string message, Exception exception) { }
 
-        public void SetTrackLocationEnabled(bool enabled) { }
+        public override void SetLocationTracking(bool enabled) { }
 
-        public void SetLocation(Coordinates coordinates) { }
+        public override void SetLocation(Coordinates coordinates) { }
 
-        public void SetSessionTimeout(uint sessionTimeoutSeconds) { }
+        public override string LibraryVersion { get { return default(string); } }
 
-        public void SetReportCrashesEnabled(bool enabled) { }
-
-        public void SetCustomAppVersion(string appVersion) { }
-
-        public void SetLoggingEnabled() { }
-
-        public void SetEnvironmentValue(string key, string value) { }
-
-        public bool CollectInstalledApps { get { return false; } set { } }
-
-        public string LibraryVersion { get { return default(string); } }
-
-        public int LibraryApiLevel { get { return default(int); } }
+        public override int LibraryApiLevel { get { return default(int); } }
     }
 }
 
