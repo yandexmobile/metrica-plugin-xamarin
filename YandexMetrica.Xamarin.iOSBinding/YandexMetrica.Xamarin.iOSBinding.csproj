@@ -9,7 +9,8 @@
     <RootNamespace>YandexMetricaIOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>YandexMetrica.Xamarin.iOS</AssemblyName>
-    <ReleaseVersion>2.0.0</ReleaseVersion>
+    <ReleaseVersion>2.1.0</ReleaseVersion>
+    <NativeAppMetricaSdkVersion>3.4.0</NativeAppMetricaSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -30,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,9 +47,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="libYandexMobileMetrica-3.1.2.linkwith.cs">
-      <DependentUpon>libYandexMobileMetrica-3.1.2.a</DependentUpon>
-    </Compile>
+    <Compile Include="YandexMetricaUserProfileImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
@@ -56,15 +57,25 @@
     <ObjcBindingApiDefinition Include="ApiDefinitions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Headers\YMMYandexMetrica.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\YandexMetrica.Xamarin.PCL\YandexMetrica.Xamarin.PCL.csproj">
       <Project>{2220CE11-BFFD-4A34-82AC-5A7469A39828}</Project>
       <Name>YandexMetrica.Xamarin.PCL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ObjcBindingNativeLibrary Include="libYandexMobileMetrica-3.1.2.a" />
+    <NativeReference Include="Libs\libYandexMobileMetrica-$(NativeAppMetricaSdkVersion).a">
+      <Kind>Static</Kind>
+      <Frameworks>SystemConfiguration Security UIKit Foundation CoreTelephony CoreLocation CoreGraphics AdSupport</Frameworks>
+      <ForceLoad>True</ForceLoad>
+      <WeakFrameworks>iAd</WeakFrameworks>
+      <LinkerFlags>-lz -lc++ -lsqlite3 -ObjC</LinkerFlags>
+    </NativeReference>
+    <NativeReference Include="Libs\libYandexMobileMetricaCrashes-$(NativeAppMetricaSdkVersion).a">
+      <Kind>Static</Kind>
+      <Frameworks>SystemConfiguration Security UIKit Foundation CoreTelephony CoreLocation CoreGraphics AdSupport</Frameworks>
+      <ForceLoad>True</ForceLoad>
+      <WeakFrameworks>iAd</WeakFrameworks>
+      <LinkerFlags>-lz -lc++ -lsqlite3 -ObjC</LinkerFlags>
+    </NativeReference>
   </ItemGroup>
 </Project>

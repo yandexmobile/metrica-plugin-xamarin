@@ -16,6 +16,16 @@ advertisement**.
 
 ## Changelog
 
+### Version 2.1.0
+* Updated AppMetrica SDK versions (iOS 3.4.0, Android 3.4.0).
+* Added properties in the config indicating that the first launch of the app is an update.
+* Added a method to disable statistics sending.
+* Added a method to retrieve the AppMetrica device ID (appmetrica_device_id).
+* Added a method to force sending stored events from the buffer.
+* Added methods for creating user profiles.
+* Added revenue tracking.
+* Support sending events with a nested dictionary.
+
 ### Version 2.0.0
 * Updated AppMetrica SDK versions (iOS 3.1.2, Android 3.1.0).
 * Changed the SDK to meet the requirements of the Apple App Store Review Team. Update the plugin to avoid any issues during the App Store moderation process.

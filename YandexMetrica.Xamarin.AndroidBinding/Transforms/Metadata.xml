@@ -1,3 +1,12 @@
 ﻿<metadata>
-	<remove-node path="/api/package[@name='com.yandex.metrica']/class[@name='CounterConfiguration']" />
+	<attr path="/api/package[@name='com.yandex.metrica']/interface[@name='AppMetricaDeviceIDListener']/method[@name='onError']"
+          name="argsType">AppMetricaDeviceIDListenerErrorEventArgs</attr>
+    <attr path="/api/package[@name='com.yandex.metrica']/interface[@name='DeferredDeeplinkParametersListener']/method[@name='onError']"
+          name="argsType">DeferredDeeplinkParametersListenerErrorEventArgs</attr>
+    
+    <remove-node path="/api/package[@name='com.yandex.metrica.profile']/class[@name='UserProfileUpdate']"/>
+    <add-node path="/api/package[@name='com.yandex.metrica.profile']">
+        <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" final="false" name="UserProfileUpdate" static="false" visibility="public">
+        </class>
+    </add-node>
 </metadata>
