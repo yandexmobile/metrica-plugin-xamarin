@@ -97,6 +97,6 @@ Global
 		{5E2E52BF-E626-41FF-9B22-BC4FDF4585F8}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		version = 2.0.0
+		version = 2.1.0
 	EndGlobalSection
 EndGlobal

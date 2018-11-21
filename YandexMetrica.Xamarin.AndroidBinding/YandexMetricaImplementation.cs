@@ -7,11 +7,13 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
+using Android.App;
 using Android.Content;
 using Android.Locations;
-using Android.App;
+using Java.Util;
 using YandexMetricaPCL;
+using YandexMetricaPCL.SimpleJson;
 
 namespace YandexMetricaAndroid
 {
@@ -23,6 +25,7 @@ namespace YandexMetricaAndroid
             EnableActivityAutoTracking(app);
 
             YandexMetrica.RegisterImplementation(new YandexMetricaImplementation());
+            YandexMetricaAttributeImplementation.Init();
             UpdateConfiguration(config);
         }
 
@@ -48,13 +51,10 @@ namespace YandexMetricaAndroid
             Com.Yandex.Metrica.YandexMetrica.ReportEvent(message);
         }
 
-        public override void ReportEvent(string message, IDictionary<string, string> parameters)
+        public override void ReportEvent(string message, IDictionary parameters)
         {
-            var jObjDict = new Dictionary<string, Java.Lang.Object>();
-            foreach (var kvp in parameters) {
-                jObjDict.Add(kvp.Key, kvp.Value);
-            }
-            Com.Yandex.Metrica.YandexMetrica.ReportEvent(message, jObjDict);
+
+            Com.Yandex.Metrica.YandexMetrica.ReportEvent(message, parameters.ToJsonString());
         } 
 
         public override void ReportError(string message, Exception exception)
@@ -73,9 +73,76 @@ namespace YandexMetricaAndroid
             Com.Yandex.Metrica.YandexMetrica.SetLocation(coordinates.ToLocation());
         }
 
+        public override void SendEventsBuffer()
+        {
+            Com.Yandex.Metrica.YandexMetrica.SendEventsBuffer();
+        }
+
+        public override void SetStatisticsSending(bool enabled)
+        {
+            Com.Yandex.Metrica.YandexMetrica.SetStatisticsSending(Application.Context, enabled);
+        }
+
+        public override void ReportRevenue(YandexAppMetricaRevenue revenue)
+        {
+            Com.Yandex.Metrica.YandexMetrica.ReportRevenue(revenue.ToAndroidRevenue());
+        }
+        
+        public override void RequestAppMetricaDeviceID(Action<string, YandexAppMetricaRequestDeviceIDError?> action)
+        {
+            Com.Yandex.Metrica.YandexMetrica.RequestAppMetricaDeviceID(new AppMetricaDeviceIDListener(action));
+        }
+
+        public override void SetUserProfileID(string userProfileID)
+        {
+            Com.Yandex.Metrica.YandexMetrica.SetUserProfileID(userProfileID);
+        }
+
+        public override void ReportUserProfile(YandexMetricaUserProfile userProfile)
+        {
+            Com.Yandex.Metrica.YandexMetrica.ReportUserProfile(userProfile.ToAndroidUserProfile());
+        }
+
         public override string LibraryVersion { get { return Com.Yandex.Metrica.YandexMetrica.LibraryVersion; } }
 
         public override int LibraryApiLevel { get { return Com.Yandex.Metrica.YandexMetrica.LibraryApiLevel; } }
+    }
+
+    class AppMetricaDeviceIDListener : Java.Lang.Object, Com.Yandex.Metrica.IAppMetricaDeviceIDListener
+    {
+        private readonly Action<string, YandexAppMetricaRequestDeviceIDError?> _action;
+
+        public AppMetricaDeviceIDListener(Action<string, YandexAppMetricaRequestDeviceIDError?> action)
+        {
+            _action = action;
+        }
+
+        public void OnLoaded(string deviceID)
+        {
+            _action.Invoke(deviceID, null);
+        }
+
+        public void OnError(Com.Yandex.Metrica.AppMetricaDeviceIDListenerReason reason)
+        {
+            _action.Invoke(null, RequestDeviceIDErrorFromAndroidReason(reason));
+        }
+
+        private YandexAppMetricaRequestDeviceIDError? RequestDeviceIDErrorFromAndroidReason(Com.Yandex.Metrica.AppMetricaDeviceIDListenerReason reason)
+        {
+            if (reason == null)
+            {
+                return null;
+            }
+            try
+            {
+                var error = Enum.Parse(typeof(YandexAppMetricaRequestDeviceIDError), reason.ToString());
+                return (YandexAppMetricaRequestDeviceIDError?)error;
+            }
+            catch (ArgumentException)
+            {
+                return YandexAppMetricaRequestDeviceIDError.UNKNOWN;
+            }
+        }
     }
 
     public static class YandexMetricaExtensionsAndroid
@@ -112,6 +179,14 @@ namespace YandexMetricaAndroid
             {
                 builder.WithInstalledAppCollecting(self.InstalledAppCollecting.Value);
             }
+            if (self.StatisticsSending.HasValue)
+            {
+                builder.WithStatisticsSending(self.StatisticsSending.Value);
+            }
+            if (self.HandleFirstActivationAsUpdate.HasValue)
+            {
+                builder.HandleFirstActivationAsUpdate(self.HandleFirstActivationAsUpdate.Value);
+            }
             if (self.PreloadInfo != null)
             {
                 var preloadInfoBuilder = Com.Yandex.Metrica.PreloadInfo.NewBuilder(self.PreloadInfo.TrackingId);
@@ -135,6 +210,71 @@ namespace YandexMetricaAndroid
                 Latitude = self.Latitude,
                 Longitude = self.Longitude
             };
+        }
+
+        public static Com.Yandex.Metrica.Revenue ToAndroidRevenue(this YandexAppMetricaRevenue self)
+        {
+            var builder = Com.Yandex.Metrica.Revenue.NewBuilder(self.Price, self.Currency.ToAndroidCurrency());
+
+            if (self.Quantity.HasValue)
+            {
+                builder.WithQuantity(new Java.Lang.Integer(self.Quantity.Value));
+            }
+            if (self.ProductID != null)
+            {
+                builder.WithProductID(self.ProductID);
+            }
+            if (self.Payload != null)
+            {
+                builder.WithPayload(self.Payload.ToJsonString());
+            }
+            if (self.Receipt.HasValue)
+            {
+                builder.WithReceipt(self.Receipt.Value.ToAndroidReceipt());
+            }
+
+            return builder.Build();
+        }
+
+        public static Com.Yandex.Metrica.Revenue.Receipt ToAndroidReceipt(this YandexAppMetricaReceipt self)
+        {
+            var builder = Com.Yandex.Metrica.Revenue.Receipt.NewBuilder();
+
+            if (self.Data != null)
+            {
+                builder.WithData(self.Data);
+            }
+            if (self.Signature != null)
+            {
+                builder.WithSignature(self.Signature);
+            }
+
+            return builder.Build();
+        }
+
+        public static Currency ToAndroidCurrency(this string self)
+        {
+            return self == null ? null : Currency.GetInstance(self);
+        }
+
+        public static string ToJsonString(this IDictionary self)
+        {
+            return self == null ? null : SimpleJson.SerializeObject(self);
+        }
+
+        public static Com.Yandex.Metrica.Profile.UserProfile ToAndroidUserProfile(this YandexMetricaUserProfile self)
+        {
+            var builder = Com.Yandex.Metrica.Profile.UserProfile.NewBuilder();
+
+            self.UserProfileUpdates.ForEach((userProflieUpdate) => 
+            {
+                if (userProflieUpdate.Native != null)
+                {
+                    builder.Apply(userProflieUpdate.Native as Com.Yandex.Metrica.Profile.UserProfileUpdate);
+                }
+            });
+
+            return builder.Build();
         }
     }
 }

@@ -2,9 +2,11 @@
 
 set -e
 
+METRICA_PROJ_FILE=YandexMetrica.Xamarin.iOSBinding.csproj
+
 pod repo update master
 
-METRICA_OLD_VER=$(ls | grep libYandexMobileMetrica-*.a | sed -e "s/libYandexMobileMetrica-\(.*\).a/\1/")
+METRICA_OLD_VER=$(sed -n -e "s,.*<NativeAppMetricaSdkVersion>\(.*\)</NativeAppMetricaSdkVersion>.*,\1,p" "$METRICA_PROJ_FILE")
 METRICA_SPEC=$(pod spec cat YandexMobileMetrica)
 METRICA_NEW_VER=$(echo "$METRICA_SPEC" | python -c 'import json,sys;print(json.load(sys.stdin)["version"])')
 
@@ -16,7 +18,6 @@ fi
 TMPDIR=update_tmp
 METRICA_OLD_FILENAME=libYandexMobileMetrica-"$METRICA_OLD_VER"
 METRICA_NEW_FILENAME=libYandexMobileMetrica-"$METRICA_NEW_VER"
-METRICA_PROJ_FILE=YandexMetrica.Xamarin.iOSBinding.csproj
 
 echo "Creating temp directory '$TMPDIR'"
 rm -rf "$TMPDIR" && mkdir "$TMPDIR"
@@ -29,23 +30,21 @@ wget -q -O framework.zip -- "$SDK_ZIP_URL"
 unzip -q framework.zip
 
 echo "Copying library and headers from framework"
-cp static/YandexMobileMetrica.framework/YandexMobileMetrica ../libYandexMobileMetrica-"$METRICA_NEW_VER".a
-rm ../libYandexMobileMetrica-"$METRICA_OLD_VER".a
-mv ../libYandexMobileMetrica-"$METRICA_OLD_VER".linkwith.cs ../libYandexMobileMetrica-"$METRICA_NEW_VER".linkwith.cs
-rm -rf ../Headers
-cp -r static/YandexMobileMetrica.framework/Headers ../Headers
+copy_library_and_headers_from_framework() { #1 - framework name
+	cp "static/$1.framework/$1" "../Libs/lib$1-${METRICA_NEW_VER}.a"
+	cp -r "static/$1.framework/Headers" "../Headers/$1"
+}
+rm -rf ../Headers && mkdir ../Headers
+rm -rf ../Libs && mkdir ../Libs
+copy_library_and_headers_from_framework YandexMobileMetrica
+copy_library_and_headers_from_framework YandexMobileMetricaCrashes
 
 cd ..
 
 echo "Updating project"
-replace_filename () {
-    echo "Replacing '$METRICA_OLD_FILENAME' with '$METRICA_NEW_FILENAME' in '$1'"
-    sed -i -e "s,\(.*\)$METRICA_OLD_FILENAME\(.*\),\1$METRICA_NEW_FILENAME\2,g" "$1"
-    rm "$1"-e
-    perl -i -pe "chomp if eof" "$1"
-}
-replace_filename "$METRICA_PROJ_FILE"
-replace_filename libYandexMobileMetrica-"$METRICA_NEW_VER".linkwith.cs
+sed -i -e "s,\(<NativeAppMetricaSdkVersion>\)$METRICA_OLD_VER\(</NativeAppMetricaSdkVersion>\),\1$METRICA_NEW_VER\2,g" "$METRICA_PROJ_FILE"
+rm "$METRICA_PROJ_FILE-e"
+perl -i -pe "chomp if eof" "$METRICA_PROJ_FILE"
 
 echo "Generating bindings"
 ./generate-binding.sh

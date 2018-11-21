@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace YandexMetricaPCL
 {
@@ -29,8 +29,14 @@ namespace YandexMetricaPCL
         public abstract int LibraryApiLevel { get; }
         public abstract void ReportError(string message, Exception exception);
         public abstract void ReportEvent(string message);
-        public abstract void ReportEvent(string message, IDictionary<string, string> parameters);
+        public abstract void ReportEvent(string message, IDictionary parameters);
         public abstract void SetLocation(Coordinates coordinates);
         public abstract void SetLocationTracking(bool enabled);
+        public abstract void SendEventsBuffer();
+        public abstract void SetStatisticsSending(bool enabled);
+        public abstract void ReportRevenue(YandexAppMetricaRevenue revenue);
+        public abstract void RequestAppMetricaDeviceID(Action<string, YandexAppMetricaRequestDeviceIDError?> action);
+        public abstract void SetUserProfileID(string userProfileID);
+        public abstract void ReportUserProfile(YandexMetricaUserProfile userProfile);
     }
 }

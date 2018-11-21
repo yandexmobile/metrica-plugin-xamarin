@@ -20,6 +20,8 @@ namespace YandexMetricaPCL
         public bool? LocationTracking { get; set; }
         public bool? Logs { get; set; }
         public bool? InstalledAppCollecting { get; set; }
+        public bool? StatisticsSending { get; set; }
+        public bool? HandleFirstActivationAsUpdate { get; set; }
 
         public YandexMetricaPreloadInfo PreloadInfo { get; set; }
 
