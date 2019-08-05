@@ -11,7 +11,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
     <AssemblyName>YandexMetrica.Xamarin.Android</AssemblyName>
-    <ReleaseVersion>2.2.0</ReleaseVersion>
+    <ReleaseVersion>2.3.0</ReleaseVersion>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -68,6 +68,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <LibraryProjectZip Include="Jars\mobmetricalib-3.6.0.aar" />
+    <LibraryProjectZip Include="Jars\mobmetricalib-3.6.4.aar" />
   </ItemGroup>
 </Project>

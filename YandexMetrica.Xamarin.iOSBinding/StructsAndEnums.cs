@@ -18,7 +18,8 @@ namespace YandexMetricaIOS
 		InvalidName = 1001,
 		JsonSerializationError = 1002,
 		InvalidRevenueInfo = 1003,
-		EmptyUserProfile = 1004
+		EmptyUserProfile = 1004,
+		NoCrashLibrary = 1005
 	}
 
 	[Native]
