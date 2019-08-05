@@ -16,6 +16,9 @@ advertisement**.
 
 ## Changelog
 
+### Version 2.2.0
+* Updated AppMetrica SDK versions (iOS 3.6.0, Android 3.6.0).
+
 ### Version 2.1.0
 * Updated AppMetrica SDK versions (iOS 3.4.0, Android 3.4.0).
 * Added properties in the config indicating that the first launch of the app is an update.
@@ -51,6 +54,6 @@ License agreement on use of Yandex AppMetrica is available at [EULA site] [LICEN
 
 
 [LICENSE]: https://yandex.com/legal/appmetrica_sdk_agreement/ "Yandex AppMetrica agreement"
-[DOCUMENTATION]: https://tech.yandex.ru/metrica-mobile-sdk/doc/mobile-sdk-dg/concepts/xamarin-plugin-docpage/ "Yandex AppMetrica Xamarin Plugin documentation"
+[DOCUMENTATION]: https://appmetrica.yandex.ru/docs/mobile-sdk-dg/concepts/xamarin-plugin.html "Yandex AppMetrica Xamarin Plugin documentation"
 [GitHubSAMPLE]: https://github.com/yandexmobile/metrica-plugin-xamarin/tree/master/samples "Samples from reository"
 [NuGetPackage]: https://www.nuget.org/packages/Yandex.Metrica.Xamarin/ "NuGet package"

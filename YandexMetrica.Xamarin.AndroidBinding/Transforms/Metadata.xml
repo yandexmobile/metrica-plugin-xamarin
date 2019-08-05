@@ -9,4 +9,6 @@
         <class abstract="false" deprecated="not deprecated" extends="java.lang.Object" final="false" name="UserProfileUpdate" static="false" visibility="public">
         </class>
     </add-node>
+    
+    <remove-node path="/api/package[@name='com.google.protobuf.nano.ym']" />
 </metadata>
