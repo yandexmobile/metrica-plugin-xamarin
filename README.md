@@ -16,6 +16,9 @@ advertisement**.
 
 ## Changelog
 
+### Version 2.3.0
+* Updated AppMetrica SDK versions (iOS 3.7.1, Android 3.6.4).
+
 ### Version 2.2.0
 * Updated AppMetrica SDK versions (iOS 3.6.0, Android 3.6.0).
 
