@@ -9,8 +9,8 @@
     <RootNamespace>YandexMetricaIOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>YandexMetrica.Xamarin.iOS</AssemblyName>
-    <ReleaseVersion>2.2.0</ReleaseVersion>
-    <NativeAppMetricaSdkVersion>3.6.0</NativeAppMetricaSdkVersion>
+    <ReleaseVersion>2.3.0</ReleaseVersion>
+    <NativeAppMetricaSdkVersion>3.7.1</NativeAppMetricaSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

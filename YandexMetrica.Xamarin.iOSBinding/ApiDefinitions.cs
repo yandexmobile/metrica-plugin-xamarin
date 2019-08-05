@@ -105,7 +105,7 @@ namespace YandexMetricaIOS
 		[return: NullAllowed]
 		YMMYandexMetricaReporting ReporterForApiKey (string apiKey);
 
-		// +(void)reportReferralUrl:(NSURL * _Nonnull)url;
+		// +(void)reportReferralUrl:(NSURL * _Nonnull)url __attribute__((deprecated("Referral URL reporting is no longer available")));
 		[Static]
 		[Export ("reportReferralUrl:")]
 		void ReportReferralUrl (NSUrl url);
@@ -114,6 +114,16 @@ namespace YandexMetricaIOS
 		[Static]
 		[Export ("sendEventsBuffer")]
 		void SendEventsBuffer ();
+
+		// +(void)resumeSession;
+		[Static]
+		[Export ("resumeSession")]
+		void ResumeSession ();
+
+		// +(void)pauseSession;
+		[Static]
+		[Export ("pauseSession")]
+		void PauseSession ();
 	}
 
 	// @interface YMMYandexMetricaConfiguration : NSObject
@@ -132,6 +142,14 @@ namespace YandexMetricaIOS
 		// @property (assign, nonatomic) BOOL handleFirstActivationAsUpdate;
 		[Export ("handleFirstActivationAsUpdate")]
 		bool HandleFirstActivationAsUpdate { get; set; }
+
+		// @property (assign, nonatomic) BOOL handleActivationAsSessionStart;
+		[Export ("handleActivationAsSessionStart")]
+		bool HandleActivationAsSessionStart { get; set; }
+
+		// @property (assign, nonatomic) BOOL sessionsAutoTracking;
+		[Export ("sessionsAutoTracking")]
+		bool SessionsAutoTracking { get; set; }
 
 		// @property (assign, nonatomic) BOOL statisticsSending;
 		[Export ("statisticsSending")]
@@ -536,9 +554,13 @@ namespace YandexMetricaIOS
 	[DisableDefaultCtor]
 	interface YMMRevenueInfo : INSCopying, INSMutableCopying
 	{
-		// @property (readonly, assign, nonatomic) double price;
+		// @property (readonly, assign, nonatomic) double price __attribute__((deprecated("Use priceDecimal")));
 		[Export ("price")]
 		double Price { get; }
+
+		// @property (readonly, nonatomic, strong) NSDecimalNumber * _Nullable priceDecimal;
+		[NullAllowed, Export ("priceDecimal", ArgumentSemantic.Strong)]
+		NSDecimalNumber PriceDecimal { get; }
 
 		// @property (readonly, copy, nonatomic) NSString * currency;
 		[Export ("currency")]
@@ -548,29 +570,37 @@ namespace YandexMetricaIOS
 		[Export ("quantity")]
 		nuint Quantity { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * productID;
-		[Export ("productID")]
+		// @property (readonly, copy, nonatomic) NSString * _Nullable productID;
+		[NullAllowed, Export ("productID")]
 		string ProductID { get; }
 
-		// @property (readonly, copy, nonatomic) NSString * transactionID;
-		[Export ("transactionID")]
+		// @property (readonly, copy, nonatomic) NSString * _Nullable transactionID;
+		[NullAllowed, Export ("transactionID")]
 		string TransactionID { get; }
 
-		// @property (readonly, copy, nonatomic) NSData * receiptData;
-		[Export ("receiptData", ArgumentSemantic.Copy)]
+		// @property (readonly, copy, nonatomic) NSData * _Nullable receiptData;
+		[NullAllowed, Export ("receiptData", ArgumentSemantic.Copy)]
 		NSData ReceiptData { get; }
 
-		// @property (readonly, copy, nonatomic) NSDictionary * payload;
-		[Export ("payload", ArgumentSemantic.Copy)]
+		// @property (readonly, copy, nonatomic) NSDictionary * _Nullable payload;
+		[NullAllowed, Export ("payload", ArgumentSemantic.Copy)]
 		NSDictionary Payload { get; }
 
-		// -(instancetype)initWithPrice:(double)price currency:(NSString *)currency;
+		// -(instancetype _Nonnull)initWithPrice:(double)price currency:(NSString * _Nonnull)currency __attribute__((deprecated("Use initWithPriceDecimal:currency:")));
 		[Export ("initWithPrice:currency:")]
 		IntPtr Constructor (double price, string currency);
 
-		// -(instancetype)initWithPrice:(double)price currency:(NSString *)currency quantity:(NSUInteger)quantity productID:(NSString *)productID transactionID:(NSString *)transactionID receiptData:(NSData *)receiptData payload:(NSDictionary *)payload;
+		// -(instancetype _Nonnull)initWithPriceDecimal:(NSDecimalNumber * _Nonnull)priceDecimal currency:(NSString * _Nonnull)currency;
+		[Export ("initWithPriceDecimal:currency:")]
+		IntPtr Constructor (NSDecimalNumber priceDecimal, string currency);
+
+		// -(instancetype _Nonnull)initWithPrice:(double)price currency:(NSString * _Nonnull)currency quantity:(NSUInteger)quantity productID:(NSString * _Nullable)productID transactionID:(NSString * _Nullable)transactionID receiptData:(NSData * _Nullable)receiptData payload:(NSDictionary * _Nullable)payload __attribute__((deprecated("Use initWithPriceDecimal:...")));
 		[Export ("initWithPrice:currency:quantity:productID:transactionID:receiptData:payload:")]
 		IntPtr Constructor (double price, string currency, nuint quantity, [NullAllowed] string productID, [NullAllowed] string transactionID, [NullAllowed] NSData receiptData, [NullAllowed] NSDictionary payload);
+
+		// -(instancetype _Nonnull)initWithPriceDecimal:(NSDecimalNumber * _Nonnull)priceDecimal currency:(NSString * _Nonnull)currency quantity:(NSUInteger)quantity productID:(NSString * _Nullable)productID transactionID:(NSString * _Nullable)transactionID receiptData:(NSData * _Nullable)receiptData payload:(NSDictionary * _Nullable)payload;
+		[Export ("initWithPriceDecimal:currency:quantity:productID:transactionID:receiptData:payload:")]
+		IntPtr Constructor (NSDecimalNumber priceDecimal, string currency, nuint quantity, [NullAllowed] string productID, [NullAllowed] string transactionID, [NullAllowed] NSData receiptData, [NullAllowed] NSDictionary payload);
 	}
 
 	// @interface YMMMutableRevenueInfo : YMMRevenueInfo
@@ -581,19 +611,19 @@ namespace YandexMetricaIOS
 		[Export ("quantity")]
 		nuint Quantity { get; set; }
 
-		// @property (copy, nonatomic) NSString * productID;
+		// @property (copy, nonatomic) NSString * _Nonnull productID;
 		[Export ("productID")]
 		string ProductID { get; set; }
 
-		// @property (copy, nonatomic) NSString * transactionID;
+		// @property (copy, nonatomic) NSString * _Nonnull transactionID;
 		[Export ("transactionID")]
 		string TransactionID { get; set; }
 
-		// @property (copy, nonatomic) NSData * receiptData;
+		// @property (copy, nonatomic) NSData * _Nonnull receiptData;
 		[Export ("receiptData", ArgumentSemantic.Copy)]
 		NSData ReceiptData { get; set; }
 
-		// @property (copy, nonatomic) NSDictionary * payload;
+		// @property (copy, nonatomic) NSDictionary * _Nonnull payload;
 		[Export ("payload", ArgumentSemantic.Copy)]
 		NSDictionary Payload { get; set; }
 	}
