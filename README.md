@@ -1,4 +1,6 @@
-# AppMetrica Xamarin Plugin
+# [ATTENTION] AppMetrica Xamarin Plugin
+
+> Support and development of the plugin has been stopped. We do not guarantee the SDK will work correctly.
 
 ## Documentation
 Documentation available on [metrica official site] [DOCUMENTATION].
